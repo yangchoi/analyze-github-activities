@@ -26,6 +26,8 @@ while True:
 
     if pr_list_response.status_code == 200:
         for item in pr_list_response.json()['items']:
+            if item['pull_request']['merged_at'] is None:
+                continue
             pr_info = {
                 'PR number': item['number'],
                 'PR title': item['title'],
@@ -33,6 +35,7 @@ while True:
                 'PR description': item['body'],
                 'PR URL': item['html_url'],
                 'PR created at': item['created_at'],
+                'PR merged at': item['pull_request']['merged_at'],
                 'PR diff': []
             }
 
